@@ -7,7 +7,7 @@ namespace StokKontrol.WEBUI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//projedeki güncellemeleri görmek için tekrar kapatýp açmadan güncelleyerek görmemizi saðlar(AddRazorRuntimeCoðilation())
 
             var app = builder.Build();
 
@@ -25,7 +25,10 @@ namespace StokKontrol.WEBUI
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.MapControllerRoute( 
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}" 
+            );
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
